@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image EXIF Tool</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app" aria-label="Image EXIF Tool">
+      <header class="app-header">
+        <h1>Image EXIF Tool</h1>
+        <p class="subtitle">Upload a JPEG, view metadata, and download without EXIF.</p>
+      </header>
+
+      <section class="upload-section">
+        <label for="fileInput" class="visually-hidden">Upload JPEG image</label>
+        <input id="fileInput" type="file" accept="image/jpeg" aria-label="Upload JPEG image" />
+        <div id="dropArea" class="drop-area" tabindex="0" aria-label="Drag and drop JPEG image here">
+          <div class="drop-instructions">
+            <strong>Drag & Drop</strong> a JPEG here or click to select.
+            <div class="note">Max size: 10MB. Only JPEG is supported.</div>
+          </div>
+        </div>
+        <div id="errorMessage" class="error" role="alert" aria-live="polite"></div>
+      </section>
+
+      <section class="preview-section">
+        <h2 class="section-title">Preview</h2>
+        <img id="preview" alt="Uploaded image preview" />
+      </section>
+
+      <section class="metadata-section">
+        <h2 class="section-title">EXIF Metadata</h2>
+        <div id="metadataEmpty" class="metadata-empty" aria-live="polite">No EXIF data loaded.</div>
+        <div class="table-wrapper" role="region" aria-label="EXIF metadata table">
+          <table class="metadata-table">
+            <thead>
+              <tr>
+                <th scope="col">Field</th>
+                <th scope="col">Value</th>
+              </tr>
+            </thead>
+            <tbody id="metadataBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="actions">
+        <button id="downloadClean" class="btn primary" type="button">Download without EXIF</button>
+        <button id="clearBtn" class="btn" type="button">Clear</button>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+  </html>

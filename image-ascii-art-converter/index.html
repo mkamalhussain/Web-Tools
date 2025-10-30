@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Image ASCII Art Converter</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="branding">
+        <h1>Image ASCII Art Converter</h1>
+        <p class="tagline">Turn images into text art — fast and offline.</p>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <section class="controls" aria-label="Controls">
+        <div class="control-group">
+          <div class="group-title">Upload</div>
+          <label for="fileInput">Image</label>
+          <input type="file" id="fileInput" accept="image/*" />
+        </div>
+
+        <div class="control-group">
+          <div class="group-title">ASCII Charset</div>
+          <label for="charsetPreset">Preset</label>
+          <select id="charsetPreset">
+            <option value="standard" selected>Standard</option>
+            <option value="dense">Dense</option>
+            <option value="sparse">Sparse</option>
+            <option value="blocks">Blocks</option>
+            <option value="custom">Custom</option>
+          </select>
+          <label for="charsetCustom">Custom (dark → light)</label>
+          <input type="text" id="charsetCustom" placeholder="e.g. @%#*+=-:. " disabled />
+        </div>
+
+        <div class="control-group">
+          <div class="group-title">Output Width</div>
+          <label for="widthSlider">Columns</label>
+          <div class="range-row">
+            <input type="range" id="widthSlider" min="80" max="200" step="2" value="120" />
+            <span id="widthValue">120</span>
+          </div>
+          <label class="checkbox-row"><input type="checkbox" id="adaptiveColumns" /> Adaptive Columns</label>
+        </div>
+
+        <div class="control-group">
+          <div class="group-title">Rendering</div>
+          <label class="checkbox-row"><input type="checkbox" id="autoApply" checked /> Auto Apply</label>
+          <label class="checkbox-row"><input type="checkbox" id="invert" /> Invert Brightness</label>
+          <label for="outputTheme">Output Theme</label>
+          <select id="outputTheme">
+            <option value="dark" selected>Dark</option>
+            <option value="light">Light</option>
+          </select>
+          <label for="brightnessSlider">Brightness</label>
+          <div class="range-row">
+            <input type="range" id="brightnessSlider" min="-0.5" max="0.5" step="0.01" value="0" />
+            <span id="brightnessValue">0.00</span>
+          </div>
+          <label for="contrastSlider">Contrast</label>
+          <div class="range-row">
+            <input type="range" id="contrastSlider" min="0.5" max="2" step="0.05" value="1" />
+            <span id="contrastValue">1.00</span>
+          </div>
+          <label for="gammaSlider">Gamma</label>
+          <div class="range-row">
+            <input type="range" id="gammaSlider" min="0.5" max="2" step="0.05" value="1" />
+            <span id="gammaValue">1.00</span>
+          </div>
+          <label class="checkbox-row"><input type="checkbox" id="weightedSampling" /> Weighted Sampling</label>
+          <label class="checkbox-row"><input type="checkbox" id="thresholdMode" /> Binary Threshold</label>
+          <label for="thresholdSlider">Threshold</label>
+          <div class="range-row">
+            <input type="range" id="thresholdSlider" min="0" max="1" step="0.01" value="0.5" />
+            <span id="thresholdValue">0.50</span>
+          </div>
+          <label for="oversampleSlider">Oversample</label>
+          <div class="range-row">
+            <input type="range" id="oversampleSlider" min="1" max="4" step="1" value="1" />
+            <span id="oversampleValue">1×</span>
+          </div>
+          <label for="sharpenSlider">Sharpen</label>
+          <div class="range-row">
+            <input type="range" id="sharpenSlider" min="0" max="2" step="0.05" value="0" />
+            <span id="sharpenValue">0.00</span>
+          </div>
+          <label for="aspectSlider">Aspect (height:width)</label>
+          <div class="range-row">
+            <input type="range" id="aspectSlider" min="1.6" max="2.4" step="0.05" value="2" />
+            <span id="aspectValue">2.00</span>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <div class="group-title">Typography</div>
+          <label for="fontSizeSlider">Font Size</label>
+          <div class="range-row">
+            <input type="range" id="fontSizeSlider" min="10" max="18" step="1" value="12" />
+            <span id="fontSizeValue">12px</span>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <div class="group-title">Actions</div>
+          <div class="button-row">
+            <button id="convertBtn" disabled>Convert</button>
+            <button id="resetBtn">Reset</button>
+            <button id="resetSettingsBtn" title="Reset rendering settings to defaults">Reset Settings</button>
+            <button id="copyBtn" disabled>Copy ASCII</button>
+            <button id="downloadBtn" disabled>Download .txt</button>
+            <button id="exportHtmlBtn" disabled>Export HTML</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="preview-grid" aria-label="Preview">
+        <div class="card">
+          <div class="card-header">
+            <h3>Original</h3>
+            <div class="meta" id="imgMeta">No image loaded</div>
+          </div>
+          <div class="card-body image-body">
+            <img id="previewImg" alt="Preview" />
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>ASCII Output</h3>
+            <div class="meta" id="asciiMeta">Width: 120 cols</div>
+          </div>
+          <div class="card-body">
+            <pre id="asciiOutput" aria-live="polite"></pre>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <small>Runs entirely in your browser. No uploads. No tracking.</small>
+    </footer>
+
+    <script src="./script.js"></script>
+  </body>
+  </html>

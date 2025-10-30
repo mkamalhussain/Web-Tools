@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Background Changer - Remove & Replace Backgrounds</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%233b82f6'/><rect x='4' y='4' width='24' height='24' rx='4' fill='%23ffffff'/><rect x='8' y='8' width='16' height='16' rx='2' fill='%233b82f6'/><circle cx='12' cy='12' r='2' fill='%23ffffff'/><path d='M8 20 L16 16 L24 20 L24 24 L8 24 Z' fill='%23ffffff'/></svg>">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1 class="title">Image Background Changer</h1>
+            <p class="tagline">Swap or remove image backgrounds instantly</p>
+            <div class="privacy-note">
+                <span class="privacy-icon">🔒</span>
+                All processing is in your browser; no data sent externally
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="app-layout">
+                <!-- Left Panel - Controls -->
+                <div class="controls-panel">
+                    <!-- Image Upload Section -->
+                    <section class="control-section">
+                        <h2 class="section-title">
+                            <span class="section-icon">📁</span>
+                            Upload Images
+                        </h2>
+                        
+                        <!-- Foreground Image Upload -->
+                        <div class="upload-group">
+                            <label class="upload-label">
+                                <span class="upload-text">Foreground Image</span>
+                                <span class="upload-hint">PNG, JPG (max 5MB)</span>
+                                <input 
+                                    type="file" 
+                                    id="foreground-upload" 
+                                    accept="image/png,image/jpeg" 
+                                    aria-label="Upload foreground image"
+                                    class="file-input"
+                                >
+                            </label>
+                            <div id="foreground-preview" class="image-preview" style="display: none;">
+                                <img id="foreground-thumbnail" alt="Foreground preview" class="thumbnail">
+                                <button type="button" id="remove-foreground" class="remove-btn" aria-label="Remove foreground image">×</button>
+                            </div>
+                        </div>
+
+                        <!-- Background Image Upload -->
+                        <div class="upload-group">
+                            <label class="upload-label">
+                                <span class="upload-text">Background Image (Optional)</span>
+                                <span class="upload-hint">PNG, JPG (max 5MB)</span>
+                                <input 
+                                    type="file" 
+                                    id="background-upload" 
+                                    accept="image/png,image/jpeg" 
+                                    aria-label="Upload background image"
+                                    class="file-input"
+                                >
+                            </label>
+                            <div id="background-preview" class="image-preview" style="display: none;">
+                                <img id="background-thumbnail" alt="Background preview" class="thumbnail">
+                                <button type="button" id="remove-background" class="remove-btn" aria-label="Remove background image">×</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Background Options Section -->
+                    <section class="control-section">
+                        <h2 class="section-title">
+                            <span class="section-icon">🎨</span>
+                            Background Options
+                        </h2>
+                        
+                        <div class="background-options">
+                            <div class="option-group">
+                                <input type="radio" id="transparent-bg" name="background-type" value="transparent" checked>
+                                <label for="transparent-bg" class="option-label">
+                                    <span class="option-icon">🔳</span>
+                                    Transparent
+                                </label>
+                            </div>
+                            
+                            <div class="option-group">
+                                <input type="radio" id="color-bg" name="background-type" value="color">
+                                <label for="color-bg" class="option-label">
+                                    <span class="option-icon">🎨</span>
+                                    Solid Color
+                                </label>
+                                <input type="color" id="background-color" value="#ffffff" class="color-picker" disabled>
+                            </div>
+                            
+                            <div class="option-group">
+                                <input type="radio" id="image-bg" name="background-type" value="image">
+                                <label for="image-bg" class="option-label">
+                                    <span class="option-icon">🖼️</span>
+                                    Custom Image
+                                </label>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Processing Controls Section -->
+                    <section class="control-section">
+                        <h2 class="section-title">
+                            <span class="section-icon">⚙️</span>
+                            Processing Controls
+                        </h2>
+                        
+                        <div class="processing-controls">
+                            <div class="control-group">
+                                <label for="tolerance" class="control-label">Background Removal Sensitivity</label>
+                                <input type="range" id="tolerance" min="1" max="100" value="30" class="range-input">
+                                <span id="tolerance-value" class="range-value">30</span>
+                            </div>
+                            
+                            <div class="control-group">
+                                <label for="edge-smoothing" class="control-label">Edge Smoothing</label>
+                                <input type="range" id="edge-smoothing" min="0" max="10" value="2" class="range-input">
+                                <span id="edge-smoothing-value" class="range-value">2</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <button type="button" id="preview-btn" class="btn btn-preview" disabled>
+                            <span class="btn-icon">👁️</span>
+                            Preview
+                        </button>
+                        <button type="button" id="download-btn" class="btn btn-download" disabled>
+                            <span class="btn-icon">💾</span>
+                            Download PNG
+                        </button>
+                        <button type="button" id="reset-btn" class="btn btn-reset">
+                            <span class="btn-icon">🔄</span>
+                            Reset
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Panel - Preview -->
+                <div class="preview-panel">
+                    <div class="canvas-container">
+                        <h2 class="section-title">
+                            <span class="section-icon">🖼️</span>
+                            Preview
+                        </h2>
+                        
+                        <div class="canvas-wrapper">
+                            <canvas id="preview-canvas" class="preview-canvas"></canvas>
+                            <div id="canvas-placeholder" class="canvas-placeholder">
+                                <div class="placeholder-content">
+                                    <span class="placeholder-icon">📷</span>
+                                    <p class="placeholder-text">Upload an image to get started</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Loading Spinner -->
+                        <div id="loading-spinner" class="loading-spinner" style="display: none;">
+                            <div class="spinner"></div>
+                            <p class="loading-text">Processing image...</p>
+                        </div>
+                        
+                        <!-- Status Messages -->
+                        <div id="status-messages" class="status-messages"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Google AdSense Section -->
+    <footer class="adsense-section">
+        <div class="container">
+            <div class="adsense-container">
+                <div class="adsense-label">Advertisement</div>
+                <div class="adsense-placeholder">
+                    <!-- 
+                    Replace this entire comment block with your actual Google AdSense code:
+                    
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+                            crossorigin="anonymous"></script>
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                         data-ad-slot="YOUR_AD_SLOT_ID"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                    -->
+                    
+                    <!-- Placeholder content for development -->
+                    <div class="ad-placeholder">
+                        <div class="ad-placeholder-content">
+                            <span class="ad-icon">📢</span>
+                            <p class="ad-text">Google AdSense Advertisement</p>
+                            <small class="ad-note">Replace the commented code above with your actual AdSense code</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image OCR Extractor</title>
+    <link rel="stylesheet" href="style.css" />
+    <meta name="description" content="Client-side OCR using Tesseract.js. Upload an image, extract text, and copy or download it." />
+  </head>
+  <body>
+    <main class="app" aria-label="Image OCR Extractor">
+      <header class="app-header">
+        <h1>Image OCR Extractor</h1>
+        <p class="subtitle">All processing happens in your browser; no data is sent externally.</p>
+      </header>
+
+      <section class="grid">
+        <div class="left">
+          <section class="upload">
+            <div id="dropArea" class="drop-area" tabindex="0" aria-label="Drag and drop image here or click to upload">
+              <button id="uploadBtn" class="btn upload" type="button" aria-label="Upload Image">
+                <span class="icon">📤</span> Upload Image
+              </button>
+              <input id="fileInput" type="file" accept="image/png, image/jpeg, image/jpg, image/bmp, image/gif" class="visually-hidden" />
+              <div class="note">Supported: PNG, JPG, JPEG, BMP, GIF • Max 10MB</div>
+            </div>
+            <div id="errorMessage" class="error" role="alert" aria-live="polite"></div>
+          </section>
+
+          <section class="preview">
+            <h2 class="section-title">Preview</h2>
+            <canvas id="previewCanvas" aria-label="Image preview"></canvas>
+          </section>
+
+          <section class="options">
+            <h2 class="section-title">Options</h2>
+            <label for="languageSelect">Language</label>
+            <select id="languageSelect" aria-label="Select OCR language">
+              <option value="eng" selected>English</option>
+              <option value="spa">Spanish</option>
+              <option value="fra">French</option>
+              <option value="deu">German</option>
+              <option value="ita">Italian</option>
+              <option value="por">Portuguese</option>
+            </select>
+            <label for="engineSelect">Engine</label>
+            <select id="engineSelect" aria-label="Select OCR engine">
+              <option value="local" selected>Local (Tesseract.js)</option>
+              <option value="cloud">Cloud (OCR.space)</option>
+            </select>
+            <div id="apiKeyRow" style="display:none; margin-top:8px;">
+              <label for="apiKey">OCR.space API Key</label>
+              <input id="apiKey" type="text" placeholder="Enter OCR.space API key" aria-label="OCR.space API key" />
+              <div class="note">Cloud OCR sends the image to OCR.space for recognition.</div>
+            </div>
+            <div class="actions">
+              <button id="extractBtn" class="btn primary" type="button" aria-label="Extract Text"><span class="icon">🔎</span> Extract Text</button>
+              <div id="progress" class="progress" aria-live="polite" aria-label="OCR progress"></div>
+            </div>
+          </section>
+        </div>
+
+        <div class="right">
+          <section class="output">
+            <h2 class="section-title">Extracted Text</h2>
+            <textarea id="outputText" class="output-text" placeholder="Extracted text will appear here" aria-label="Extracted text" spellcheck="false"></textarea>
+            <div class="actions">
+              <button id="copyBtn" class="btn success" type="button" aria-label="Copy text"><span class="icon">📋</span> Copy Text</button>
+              <button id="downloadBtn" class="btn violet" type="button" aria-label="Download text"><span class="icon">⬇️</span> Download .txt</button>
+              <button id="clearBtn" class="btn" type="button" aria-label="Clear"><span class="icon">🧹</span> Clear</button>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@latest/dist/tesseract.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+  </html>

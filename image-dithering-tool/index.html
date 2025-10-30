@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Image Dithering Tool</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Image Dithering Tool</h1>
+      <p>Upload an image and apply classic dithering (Floyd–Steinberg, Atkinson) with limited grayscale palettes for a newsprint or pixel-art look.</p>
+    </header>
+
+    <section class="controls">
+      <div class="control-group">
+        <div class="group-title">Image</div>
+        <input type="file" id="fileInput" accept="image/*" />
+      </div>
+      <div class="control-group">
+        <div class="group-title">Dithering</div>
+        <label for="algorithm">Algorithm</label>
+        <select id="algorithm">
+          <option value="floyd-steinberg">Floyd–Steinberg</option>
+          <option value="atkinson">Atkinson</option>
+          <option value="threshold">Threshold (no diffusion)</option>
+        </select>
+        <label for="colors">Colors</label>
+        <select id="colors">
+          <option value="2">2</option>
+          <option value="4" selected>4</option>
+          <option value="8">8</option>
+          <option value="16">16</option>
+        </select>
+        <label for="palette">Palette</label>
+        <select id="palette">
+          <option value="grayscale" selected>Grayscale</option>
+          <option value="retro4">Retro 4-color</option>
+          <option value="cga16">CGA 16-color</option>
+        </select>
+        <label class="inline">
+          <input type="checkbox" id="autoApply" /> Auto Apply
+        </label>
+      </div>
+      <div class="control-group">
+        <div class="group-title">Theme</div>
+        <label for="theme">Theme</label>
+        <select id="theme">
+          <option value="dark" selected>Dark</option>
+          <option value="light">Light</option>
+          <option value="solarized">Solarized</option>
+          <option value="pro">Pro</option>
+        </select>
+        <label for="density">Density</label>
+        <select id="density">
+          <option value="comfortable" selected>Comfortable</option>
+          <option value="compact">Compact</option>
+        </select>
+      </div>
+      <div class="control-group actions">
+        <div class="group-title">Actions</div>
+        <div class="button-row">
+          <button id="applyBtn" disabled>Apply Dither</button>
+          <button id="resetBtn" disabled>Reset</button>
+          <button id="downloadBtn" disabled>Download</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="canvas-wrap">
+      <div class="canvas-card">
+        <div class="canvas-header">
+          <h2>Preview</h2>
+          <span class="canvas-meta" id="canvasMeta"></span>
+        </div>
+        <canvas id="canvas"></canvas>
+      </div>
+    </section>
+
+    <footer>
+      <small>Tip: Try Floyd–Steinberg with 4 colors for a newspaper-like stipple. No external services used; everything runs locally in your browser.</small>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+  </html>

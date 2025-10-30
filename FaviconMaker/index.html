@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favicon Maker - Create Professional Favicons</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%234f46e5'/><text x='16' y='20' text-anchor='middle' fill='white' font-family='Arial' font-size='16' font-weight='bold'>F</text></svg>">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🎨 Favicon Maker</h1>
+            <p>Create professional favicons for your website in seconds</p>
+        </header>
+
+        <!-- Progress Steps -->
+        <div class="progress-steps">
+            <div class="step active" data-step="1">
+                <div class="step-number">1</div>
+                <div class="step-label">Upload</div>
+            </div>
+            <div class="step" data-step="2">
+                <div class="step-number">2</div>
+                <div class="step-label">Crop</div>
+            </div>
+            <div class="step" data-step="3">
+                <div class="step-number">3</div>
+                <div class="step-label">Preview</div>
+            </div>
+            <div class="step" data-step="4">
+                <div class="step-number">4</div>
+                <div class="step-label">Download</div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Step 1: Upload -->
+            <section id="upload-section" class="section active">
+                <div class="section-header">
+                    <h2>📁 Upload Your Image</h2>
+                    <p>Choose an image file (JPG, PNG, GIF) to create your favicon</p>
+                </div>
+                
+                <div class="upload-area" id="upload-area">
+                    <div class="upload-content">
+                        <div class="upload-icon">📷</div>
+                        <h3>Drag & Drop your image here</h3>
+                        <p>or click to browse files</p>
+                        <input type="file" id="file-input" accept="image/*" hidden>
+                        <button type="button" class="btn btn-primary" onclick="document.getElementById('file-input').click()">
+                            Choose File
+                        </button>
+                    </div>
+                </div>
+
+                <div class="upload-tips">
+                    <h4>💡 Tips for best results:</h4>
+                    <ul>
+                        <li>Use high-resolution images (at least 512x512px)</li>
+                        <li>Simple designs work better at small sizes</li>
+                        <li>Avoid fine details that may not be visible</li>
+                        <li>Consider how your design looks in square format</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Step 2: Crop -->
+            <section id="crop-section" class="section">
+                <div class="section-header">
+                    <h2>✂️ Crop Your Image</h2>
+                    <p>Select the square area you want to use for your favicon</p>
+                </div>
+
+                <div class="crop-container">
+                    <div class="crop-canvas-container">
+                        <canvas id="crop-canvas"></canvas>
+                        <div id="crop-overlay" class="crop-overlay">
+                            <div id="crop-selection" class="crop-selection">
+                                <div class="crop-handle top-left"></div>
+                                <div class="crop-handle top-right"></div>
+                                <div class="crop-handle bottom-left"></div>
+                                <div class="crop-handle bottom-right"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="crop-controls">
+                        <div class="crop-preview">
+                            <h4>Preview</h4>
+                            <canvas id="crop-preview-canvas" width="128" height="128"></canvas>
+                        </div>
+                        
+                        <div class="crop-actions">
+                            <button type="button" class="btn btn-secondary" id="reset-crop-btn">Reset Crop</button>
+                            <button type="button" class="btn btn-primary" id="apply-crop-btn">Apply Crop</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 3: Preview -->
+            <section id="preview-section" class="section">
+                <div class="section-header">
+                    <h2>👁️ Preview Your Favicons</h2>
+                    <p>See how your favicon will look in different sizes and contexts</p>
+                </div>
+
+                <div class="preview-container">
+                    <!-- Size Previews -->
+                    <div class="size-previews">
+                        <h3>📏 Size Previews</h3>
+                        <div class="preview-grid">
+                            <div class="preview-item">
+                                <canvas class="preview-canvas" data-size="16" width="16" height="16"></canvas>
+                                <span>16x16</span>
+                            </div>
+                            <div class="preview-item">
+                                <canvas class="preview-canvas" data-size="32" width="32" height="32"></canvas>
+                                <span>32x32</span>
+                            </div>
+                            <div class="preview-item">
+                                <canvas class="preview-canvas" data-size="48" width="48" height="48"></canvas>
+                                <span>48x48</span>
+                            </div>
+                            <div class="preview-item">
+                                <canvas class="preview-canvas" data-size="64" width="64" height="64"></canvas>
+                                <span>64x64</span>
+                            </div>
+                            <div class="preview-item">
+                                <canvas class="preview-canvas" data-size="128" width="128" height="128"></canvas>
+                                <span>128x128</span>
+                            </div>
+                            <div class="preview-item">
+                                <canvas class="preview-canvas" data-size="180" width="180" height="180"></canvas>
+                                <span>180x180 (Apple)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Browser Tab Preview -->
+                    <div class="browser-preview">
+                        <h3>🌐 Browser Tab Preview</h3>
+                        <div class="browser-tab-simulation">
+                            <div class="tab">
+                                <canvas class="tab-favicon" width="16" height="16"></canvas>
+                                <span class="tab-title">Your Website</span>
+                                <span class="tab-close">×</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="preview-actions">
+                    <button type="button" class="btn btn-secondary" id="back-to-crop-btn">← Back to Crop</button>
+                    <button type="button" class="btn btn-primary" id="generate-favicons-btn">Generate Favicons</button>
+                </div>
+            </section>
+
+            <!-- Step 4: Download -->
+            <section id="download-section" class="section">
+                <div class="section-header">
+                    <h2>💾 Download Your Favicons</h2>
+                    <p>Get all your favicon files and implementation code</p>
+                </div>
+
+                <div class="download-container">
+                    <div class="download-info">
+                        <div class="info-card">
+                            <h3>📦 What's included:</h3>
+                            <ul id="included-files-list">
+                                <li>favicon.ico (multi-resolution)</li>
+                                <li>favicon-16x16.png</li>
+                                <li>favicon-32x32.png</li>
+                                <li>favicon-48x48.png</li>
+                                <li>apple-touch-icon.png (180x180)</li>
+                                <li>manifest.json snippet</li>
+                                <li>HTML implementation code</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-card">
+                            <h3>🔧 Implementation</h3>
+                            <p>Copy the HTML code below and paste it in your website's &lt;head&gt; section:</p>
+                            <div class="code-block">
+                                <pre id="html-code"></pre>
+                                <button type="button" class="btn btn-copy" id="copy-html-btn">Copy HTML</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="download-actions">
+                        <button type="button" class="btn btn-primary btn-large" id="download-zip-btn">
+                            📥 Download ZIP Package
+                        </button>
+                        <button type="button" class="btn btn-secondary" id="start-over-btn">🔄 Start Over</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Google AdSense Section -->
+        <section class="adsense-section">
+            <div class="adsense-container">
+                <div class="adsense-label">Advertisement</div>
+                <div class="adsense-placeholder">
+                    <!-- Google AdSense Placeholder -->
+                    <div class="ad-placeholder-content">
+                        <div class="ad-placeholder-icon">📢</div>
+                        <div class="ad-placeholder-text">
+                            <h4>Google AdSense Ad Space</h4>
+                            <p>Replace with your actual AdSense code</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 
+                    Replace this placeholder with your actual Google AdSense code:
+                    
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+                            crossorigin="anonymous"></script>
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                         data-ad-slot="YOUR_AD_SLOT_ID"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                    -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Status Messages -->
+        <div id="status-message" class="status-message"></div>
+    </div>
+
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    
+    <!-- Custom Styles and Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>

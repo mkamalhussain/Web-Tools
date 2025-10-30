@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+/* Enable DaisyUI components and themes */
+@plugin "daisyui";
+
+/* Optional: light resets for body */
+body {
+  min-height: 100vh;
+}

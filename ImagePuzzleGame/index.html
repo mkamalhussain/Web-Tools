@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Puzzle Game</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-500 via-purple-500 to-green-500">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-white mb-2">🧩 Image Puzzle Game</h1>
+            <p class="text-white/80">Upload an image and solve the sliding puzzle!</p>
+        </header>
+
+        <!-- Upload Section -->
+        <section class="bg-white/10 backdrop-blur-md rounded-2xl p-6 mb-6 shadow-xl">
+            <div class="flex flex-col md:flex-row gap-4 items-center justify-center">
+                <div class="flex flex-col items-center">
+                    <label for="imageUpload" class="btn-primary cursor-pointer">
+                        📁 Upload Image
+                        <input type="file" id="imageUpload" accept="image/*" class="hidden" aria-label="Upload puzzle image">
+                    </label>
+                    <p class="text-white/60 text-sm mt-2">PNG, JPG (max 5MB)</p>
+                </div>
+                
+                <div class="flex flex-col items-center">
+                    <label for="gridSize" class="text-white mb-2">Grid Size:</label>
+                    <select id="gridSize" class="px-4 py-2 rounded-lg bg-white/20 text-white border border-white/30" aria-label="Select puzzle grid size">
+                        <option value="3">3x3 (Easy)</option>
+                        <option value="4">4x4 (Medium)</option>
+                        <option value="5">5x5 (Hard)</option>
+                    </select>
+                </div>
+                
+                <button id="startBtn" class="btn-primary" disabled aria-label="Start puzzle game">
+                    🎮 Start Game
+                </button>
+            </div>
+        </section>
+
+        <!-- Game Area -->
+        <section class="flex flex-col lg:flex-row gap-6">
+            <!-- Preview and Puzzle -->
+            <div class="flex-1">
+                <!-- Image Preview -->
+                <div id="previewContainer" class="bg-white/10 backdrop-blur-md rounded-2xl p-6 mb-6 shadow-xl hidden">
+                    <h3 class="text-white text-lg font-semibold mb-4">Original Image</h3>
+                    <div class="flex justify-center">
+                        <img id="imagePreview" class="max-w-full max-h-48 rounded-lg shadow-lg" alt="Original puzzle image">
+                    </div>
+                </div>
+
+                <!-- Puzzle Canvas -->
+                <div id="puzzleContainer" class="bg-white/10 backdrop-blur-md rounded-2xl p-6 shadow-xl hidden">
+                    <div class="flex justify-center">
+                        <canvas id="puzzleCanvas" class="border-2 border-white/30 rounded-lg shadow-lg cursor-pointer" 
+                                tabindex="0" aria-label="Puzzle game board"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Controls -->
+            <div class="lg:w-80">
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 shadow-xl">
+                    <h3 class="text-white text-lg font-semibold mb-4">Game Stats</h3>
+                    
+                    <!-- Timer -->
+                    <div class="mb-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-white">⏱️ Time:</span>
+                            <span id="timer" class="text-white font-mono text-lg">00:00</span>
+                        </div>
+                    </div>
+
+                    <!-- Moves Counter -->
+                    <div class="mb-6">
+                        <div class="flex items-center justify-between">
+                            <span class="text-white">🔄 Moves:</span>
+                            <span id="moveCounter" class="text-white font-mono text-lg">0</span>
+                        </div>
+                    </div>
+
+                    <!-- Control Buttons -->
+                    <div class="space-y-3">
+                        <button id="hintBtn" class="btn-secondary w-full" disabled aria-label="Show hint">
+                            💡 Show Hint
+                        </button>
+                        <button id="resetBtn" class="btn-secondary w-full" disabled aria-label="Reset puzzle">
+                            🔄 Reset Puzzle
+                        </button>
+                        <button id="downloadBtn" class="btn-secondary w-full" disabled aria-label="Download solved puzzle">
+                            💾 Download Image
+                        </button>
+                    </div>
+
+                    <!-- Keyboard Instructions -->
+                    <div class="mt-6 p-4 bg-white/5 rounded-lg">
+                        <h4 class="text-white text-sm font-semibold mb-2">Keyboard Controls:</h4>
+                        <ul class="text-white/70 text-xs space-y-1">
+                            <li>• Arrow keys: Move tiles</li>
+                            <li>• Space: Show hint</li>
+                            <li>• R: Reset puzzle</li>
+                            <li>• Enter: Start game</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Google AdSense Section -->
+        <div class="container mx-auto px-4 py-8">
+            <div class="adsense-container">
+                <div class="adsense-label">Advertisement</div>
+                <div class="adsense-placeholder">
+                    <div class="adsense-content">
+                        <div class="adsense-icon">📢</div>
+                        <div class="adsense-text">
+                            <div class="adsense-title">Google AdSense Placeholder</div>
+                            <div class="adsense-subtitle">Your ads will appear here</div>
+                        </div>
+                    </div>
+                    <!-- Replace this placeholder with actual AdSense code -->
+                    <!-- 
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX"
+                            crossorigin="anonymous"></script>
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-XXXXXXXXXX"
+                         data-ad-slot="XXXXXXXXXX"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                    -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Win Modal -->
+        <div id="winModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-50">
+            <div class="bg-white rounded-2xl p-8 max-w-md mx-4 text-center shadow-2xl">
+                <div class="text-6xl mb-4">🎉</div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Congratulations!</h2>
+                <p class="text-gray-600 mb-4">You solved the puzzle!</p>
+                <div id="winStats" class="bg-gray-100 rounded-lg p-4 mb-6">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-gray-700">Time:</span>
+                        <span id="finalTime" class="font-mono font-semibold">00:00</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-700">Moves:</span>
+                        <span id="finalMoves" class="font-mono font-semibold">0</span>
+                    </div>
+                </div>
+                <button id="playAgainBtn" class="btn-primary">
+                    🎮 Play Again
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

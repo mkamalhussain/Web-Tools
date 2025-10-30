@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Card Maker - Design Personalized Greeting Cards</title>
+    <meta name="description" content="Create beautiful custom greeting cards with images and messages. Upload photos or search online, add text, and download as PNG or PDF.">
+    
+    <!-- External Libraries -->
+    <script src="https://unpkg.com/html2canvas@latest/dist/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="header-title">Custom Card Maker</h1>
+                <p class="header-tagline">Create beautiful, personalized cards with custom images, text, and professional styling</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="app-layout">
+                <!-- Left Panel - Controls -->
+                <div class="controls-panel">
+                    <!-- Image Source Section -->
+                    <section class="control-section" aria-labelledby="image-section-title">
+                        <h2 id="image-section-title" class="section-title">
+                            <span class="section-icon">🖼️</span>
+                            Add Image
+                        </h2>
+                        
+                        <!-- File Upload -->
+                        <div class="upload-area">
+                            <label for="image-upload" class="upload-label">
+                                <span class="upload-icon">📁</span>
+                                <span class="upload-text">Upload Image</span>
+                                <span class="upload-hint">PNG, JPG (max 5MB)</span>
+                            </label>
+                            <input 
+                                type="file" 
+                                id="image-upload" 
+                                accept="image/png,image/jpeg,image/jpg" 
+                                aria-describedby="upload-help"
+                                class="file-input"
+                            >
+                            <div id="upload-help" class="sr-only">Upload an image file to use in your card. Supported formats: PNG, JPG. Maximum size: 5MB.</div>
+                        </div>
+
+                        <!-- Image Search -->
+                        <div class="search-area">
+                            <div class="search-input-group">
+                                <input 
+                                    type="text" 
+                                    id="image-search" 
+                                    placeholder="Search for images (e.g., birthday, flowers, nature)"
+                                    aria-label="Search for images online"
+                                    class="search-input"
+                                >
+                                <button 
+                                    type="button" 
+                                    id="search-btn" 
+                                    class="search-button"
+                                    aria-label="Search for images"
+                                >
+                                    🔍
+                                </button>
+                            </div>
+                            <div id="search-results" class="search-results" aria-live="polite"></div>
+                        </div>
+                    </section>
+
+                    <!-- Text Customization Section -->
+                    <section class="control-section" aria-labelledby="text-section-title">
+                        <h2 id="text-section-title" class="section-title">
+                            <span class="section-icon">✏️</span>
+                            Add Text
+                        </h2>
+                        
+                        <div class="text-controls">
+                            <div class="input-group">
+                                <label for="card-text" class="input-label">Message</label>
+                                <textarea 
+                                    id="card-text" 
+                                    placeholder="Enter your message here..."
+                                    class="text-input"
+                                    rows="3"
+                                    aria-describedby="text-help"
+                                ></textarea>
+                                <div id="text-help" class="input-help">Add your custom message to the card</div>
+                            </div>
+
+                            <div class="control-row">
+                                <div class="input-group">
+                                    <label for="font-family" class="input-label">Font</label>
+                                    <select id="font-family" class="select-input">
+                                        <option value="Inter">Inter (Clean)</option>
+                                        <option value="Dancing Script">Dancing Script (Handwritten)</option>
+                                        <option value="Playfair Display">Playfair Display (Elegant)</option>
+                                    </select>
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="font-size" class="input-label">Size</label>
+                                    <input 
+                                        type="range" 
+                                        id="font-size" 
+                                        min="12" 
+                                        max="72" 
+                                        value="24"
+                                        class="range-input"
+                                        aria-label="Font size"
+                                    >
+                                    <span class="range-value" id="font-size-value">24px</span>
+                                </div>
+                            </div>
+
+                            <div class="control-row">
+                                <div class="input-group">
+                                    <label for="text-color" class="input-label">Color</label>
+                                    <input 
+                                        type="color" 
+                                        id="text-color" 
+                                        value="#000000"
+                                        class="color-input"
+                                        aria-label="Text color"
+                                    >
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="text-position" class="input-label">Position</label>
+                                    <select id="text-position" class="select-input">
+                                        <option value="center">Center</option>
+                                        <option value="top">Top</option>
+                                        <option value="bottom">Bottom</option>
+                                        <option value="left">Left</option>
+                                        <option value="right">Right</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="control-row">
+                                <button type="button" id="add-text-btn" class="action-button secondary">
+                                    Add Text to Card
+                                </button>
+                                <button type="button" id="clear-text-btn" class="action-button danger">
+                                    Clear All Text
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Border Customization Section -->
+                    <section class="control-section" aria-labelledby="border-section-title">
+                        <h2 id="border-section-title" class="section-title">
+                            <span class="section-icon">🖼️</span>
+                            Card Border
+                        </h2>
+                        
+                        <div class="border-controls">
+                            <div class="control-row">
+                                <div class="input-group">
+                                    <label for="border-style" class="input-label">Style</label>
+                                    <select id="border-style" class="select-input">
+                                        <option value="none">No Border</option>
+                                        <option value="solid">Solid</option>
+                                        <option value="dashed">Dashed</option>
+                                        <option value="dotted">Dotted</option>
+                                        <option value="double">Double</option>
+                                        <option value="decorative">Decorative</option>
+                                    </select>
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="border-width" class="input-label">Width</label>
+                                    <input 
+                                        type="range" 
+                                        id="border-width" 
+                                        min="1" 
+                                        max="20" 
+                                        value="3"
+                                        class="range-input"
+                                        aria-label="Border width"
+                                    >
+                                    <span class="range-value" id="border-width-value">3px</span>
+                                </div>
+                            </div>
+
+                            <div class="control-row">
+                                <div class="input-group">
+                                    <label for="border-color" class="input-label">Color</label>
+                                    <input 
+                                        type="color" 
+                                        id="border-color" 
+                                        value="#000000"
+                                        class="color-input"
+                                        aria-label="Border color"
+                                    >
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="border-radius" class="input-label">Rounded</label>
+                                    <input 
+                                        type="range" 
+                                        id="border-radius" 
+                                        min="0" 
+                                        max="50" 
+                                        value="0"
+                                        class="range-input"
+                                        aria-label="Border radius"
+                                    >
+                                    <span class="range-value" id="border-radius-value">0px</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Card Templates (Optional) -->
+                    <section class="control-section" aria-labelledby="template-section-title">
+                        <h2 id="template-section-title" class="section-title">
+                            <span class="section-icon">🎨</span>
+                            Quick Templates
+                        </h2>
+                        
+                        <div class="template-buttons">
+                            <button type="button" class="template-btn" data-template="birthday">🎂 Birthday</button>
+                            <button type="button" class="template-btn" data-template="holiday">🎄 Holiday</button>
+                            <button type="button" class="template-btn" data-template="thank-you">💝 Thank You</button>
+                            <button type="button" class="template-btn" data-template="blank">📄 Blank</button>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Right Panel - Canvas and Actions -->
+                <div class="canvas-panel">
+                    <!-- Canvas Container -->
+                    <div class="canvas-container">
+                        <canvas 
+                            id="card-canvas" 
+                            width="600" 
+                            height="400"
+                            aria-label="Card design canvas"
+                            tabindex="0"
+                        ></canvas>
+                        <div class="canvas-overlay" id="canvas-overlay"></div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <button type="button" id="preview-btn" class="action-button primary">
+                            <span class="button-icon">👁️</span>
+                            Preview Card
+                        </button>
+                        
+                        <div class="download-buttons">
+                            <button type="button" id="download-png-btn" class="action-button secondary">
+                                <span class="button-icon">📷</span>
+                                Download PNG
+                            </button>
+                            <button type="button" id="download-pdf-btn" class="action-button secondary">
+                                <span class="button-icon">📄</span>
+                                Download PDF
+                            </button>
+                        </div>
+
+                        <button type="button" id="clear-canvas-btn" class="action-button danger">
+                            <span class="button-icon">🗑️</span>
+                            Clear Canvas
+                        </button>
+                    </div>
+
+                    <!-- Card Info -->
+                    <div class="card-info">
+                        <p class="info-text">
+                            <strong>Card Size:</strong> 600 × 400 pixels (Postcard format)
+                        </p>
+                        <p class="privacy-notice">
+                            🔒 <strong>Privacy:</strong> All design happens in your browser. Images from search are fetched publicly.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay" aria-hidden="true">
+        <div class="loading-spinner"></div>
+        <p class="loading-text">Processing...</p>
+    </div>
+
+    <!-- Error Toast -->
+    <div id="error-toast" class="error-toast" role="alert" aria-live="assertive"></div>
+
+    <!-- Success Toast -->
+    <div id="success-toast" class="success-toast" role="alert" aria-live="polite"></div>
+
+    <!-- Google AdSense Section -->
+    <section class="adsense-section" aria-label="Advertisements">
+        <div class="container">
+            <h2 class="adsense-title">Support Our Free Tools</h2>
+            
+            <!-- Banner Ad -->
+            <div class="ad-unit banner-ad">
+                <div class="ad-label">Advertisement</div>
+                <div class="ad-placeholder">
+                    <p>728 x 90 Banner Ad</p>
+                    <p class="setup-text">Replace with your AdSense code</p>
+                </div>
+                <!-- Replace this placeholder with your actual AdSense code -->
+                <!-- 
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXX"
+                        crossorigin="anonymous"></script>
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:728px;height:90px"
+                     data-ad-client="ca-pub-XXXXXXXXX"
+                     data-ad-slot="XXXXXXXXX"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+                -->
+            </div>
+
+            <!-- Square Ad -->
+            <div class="ad-unit square-ad">
+                <div class="ad-label">Advertisement</div>
+                <div class="ad-placeholder">
+                    <p>300 x 250 Square Ad</p>
+                    <p class="setup-text">Replace with your AdSense code</p>
+                </div>
+                <!-- Replace this placeholder with your actual AdSense code -->
+            </div>
+
+            <!-- Footer Banner Ad -->
+            <div class="ad-unit footer-banner-ad">
+                <div class="ad-label">Advertisement</div>
+                <div class="ad-placeholder">
+                    <p>320 x 50 Mobile Banner</p>
+                    <p class="setup-text">Replace with your AdSense code</p>
+                </div>
+                <!-- Replace this placeholder with your actual AdSense code -->
+            </div>
+
+            <div class="setup-instructions">
+                <h3>AdSense Setup Instructions:</h3>
+                <ol>
+                    <li>Sign up for Google AdSense and get approved</li>
+                    <li>Create ad units in your AdSense dashboard</li>
+                    <li>Replace the placeholder divs with your actual AdSense code</li>
+                    <li>Update the data-ad-client and data-ad-slot values</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>

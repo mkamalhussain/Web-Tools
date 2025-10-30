@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Image Pixel Sorter</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Image Pixel Sorter</h1>
+      <p>Upload an image, drag to select a region, and sort pixels by brightness, hue, or RGB channel to create glitch-art effects.</p>
+    </header>
+
+    <section class="controls">
+      <input type="file" id="fileInput" accept="image/*" />
+      <label for="mode">Sort by:</label>
+      <select id="mode">
+        <option value="brightness">Brightness (R+G+B)</option>
+        <option value="hue">Hue</option>
+        <option value="red">Red Channel</option>
+        <option value="green">Green Channel</option>
+        <option value="blue">Blue Channel</option>
+      </select>
+      <label for="direction">Direction:</label>
+      <select id="direction">
+        <option value="rows">Rows (horizontal)</option>
+        <option value="columns">Columns (vertical)</option>
+      </select>
+      <label for="order">Order:</label>
+      <select id="order">
+        <option value="ascending">Ascending</option>
+        <option value="descending">Descending</option>
+      </select>
+      <label for="strength">Strength:</label>
+      <input type="range" id="strength" min="0" max="100" value="50" />
+      <span id="strengthVal">50%</span>
+      <button id="sortSelectionBtn" disabled>Sort Selected Region</button>
+      <button id="sortAllBtn" disabled>Sort Whole Image</button>
+      <button id="resetBtn" disabled>Reset</button>
+      <button id="downloadBtn" disabled>Download</button>
+    </section>
+
+    <section class="canvas-wrap">
+      <div class="canvas-stack">
+        <canvas id="canvas"></canvas>
+        <canvas id="overlay"></canvas>
+      </div>
+    </section>
+
+    <footer>
+      <small>Tip: Drag on the image to select a rectangle. Use the dropdown to choose sorting criterion.</small>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+  </html>

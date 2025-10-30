@@ -1,0 +1,47 @@
+:root {
+  --bg: #0f0f12;
+  --fg: #e8e8f0;
+  --accent: #7aa2ff;
+  --muted: #9aa1ac;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+}
+header, footer {
+  padding: 1rem 1.5rem;
+}
+header h1 { margin: 0 0 0.25rem 0; }
+header p { margin: 0; color: var(--muted); }
+
+.controls {
+  display: flex;
+  gap: 0.5rem 0.75rem;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  border-top: 1px solid #222;
+  border-bottom: 1px solid #222;
+  flex-wrap: wrap;
+}
+.controls select, .controls button, .controls input[type="file"] {
+  background: #1a1b20;
+  color: var(--fg);
+  border: 1px solid #2a2b31;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+}
+.controls input[type="range"] { width: 140px; }
+.controls label { color: var(--muted); }
+.controls button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.canvas-wrap {
+  padding: 1rem 1.5rem;
+}
+.canvas-stack { position: relative; max-width: 100%; }
+#canvas, #overlay { max-width: 100%; display: block; }
+#overlay { position: absolute; left: 0; top: 0; pointer-events: none; }
+
+footer { color: var(--muted); }

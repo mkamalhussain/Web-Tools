@@ -1,0 +1,2 @@
+-keep class android.media.** { *; }
+-keep class androidx.camera.** { *; }

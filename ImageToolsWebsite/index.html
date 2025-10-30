@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Tools Website</title>
+    <meta name="description" content="A curated suite of handy image tools — fast, free, and privacy-friendly." />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="brand">
+        <span class="logo">🖼️</span>
+        <h1>Image Tools</h1>
+      </div>
+      <nav class="nav">
+        <a href="#tools">Tools</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h2>Work Smarter with Images</h2>
+        <p>One place for quick conversions, edits, and clever image utilities — all in your browser.</p>
+        <div class="cta">
+          <a class="btn primary" href="#tools">Explore Tools</a>
+        </div>
+      </section>
+
+      <section id="ad" class="ad">
+        <div class="ad-placeholder">
+          <strong>Sponsored</strong>
+          <div>Google AdSense placeholder (slot)</div>
+        </div>
+      </section>
+
+      <section id="tools" class="tools">
+        <h3>Featured Tools</h3>
+        <div class="toolbar">
+          <input id="search" type="search" placeholder="Search tools" aria-label="Search tools" />
+          <select id="categoryFilter" aria-label="Filter by category">
+            <option value="all">All</option>
+            <option value="convert">Convert</option>
+            <option value="edit">Edit</option>
+            <option value="analyze">Analyze</option>
+          </select>
+        </div>
+        <div class="grid" id="toolsGrid">
+          <!-- Cards injected by script.js based on availability -->
+        </div>
+      </section>
+
+      <section id="about" class="about">
+        <h3>About</h3>
+        <p>These tools run locally in your browser where possible. Some features may use trusted APIs. Your privacy matters.</p>
+      </section>
+
+      <section id="contact" class="contact">
+        <h3>Contact</h3>
+        <p>Have ideas for new tools? Reach out and suggest features you’d love to see.</p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© <span id="year"></span> Image Tools. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
